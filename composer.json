@@ -1,0 +1,34 @@
+{
+  "name": "jkphl/apparat",
+  "description": "A strongly opionated object publishing platform focusing on independence, long-term accessibility and progressive enhancement",
+  "minimum-stability": "RC",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Joschi Kuphal",
+      "email": "joschi@kuphal.net"
+    }
+  ],
+  "require": {
+    "aura/router": "^3.0@beta",
+    "zendframework/zend-diactoros": "^1.1",
+    "zendframework/zendsearch": "dev-master",
+    "bauwerk/bauwerk-resource": "dev-master",
+    "namelesscoder/fluid": "^1.1"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url":  "git@github.com:bauwerk-tools/bauwerk-resource.git",
+      "reference": "master"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Jkphl\\Apparat\\": "src/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.8"
+  }
+}
