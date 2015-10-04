@@ -184,6 +184,7 @@ Object meta data
 * Name
 * Type
 * Object UID
+* Object UUID (see https://en.wikipedia.org/wiki/Universally_unique_identifier)
 * File hash
 * Summary
 * Keywords
