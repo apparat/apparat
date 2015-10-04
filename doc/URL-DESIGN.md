@@ -16,16 +16,16 @@ URL structure
 
 As a matter of fact, there's no compelling reason why you would necessarily have to distribute the entirety of objects into a multi-level directory structure. Singling out the objects, however, keeps up file system performance and helps avoiding troubles with file and directory name length limitations under certain file systems. A typical *apparat* object URL looks like this:
 
-	http://apparat.tools/2015/10/01/36704/event.36704.md
+	http://apparat.tools/2015/10/01/36704.event/36704.md
 	
 The path component consists of
 
 1. up to five nested subdirectories denoting the object's [**creation date (and time)**](#creation-date), configurable from `YYYY/MM/DD` to `YYYY/MM/DD/HH/II`, 
-2. an innermost directory named after the [**object ID**](#object-ids), serving as parent directory for all object related files,
+2. an innermost directory named after the [**object ID**](#object-ids) and the [object type](#OBJECTS.md), serving as parent directory for all object related files,
 3. and finally the [**object file**](#object-file-names) itself, once more named after the object ID and with **a lower-case file extension**. 
 
 ```
-http://apparat.tools  /  2015/10/01  /  36704  /  event  .  36704  .  md
+http://apparat.tools  /  2015/10/01  /  36704  .  event  /  36704  .  md
 							 ^            ^         ^         ^       ^
 						  creation     object    object    object     file
 							date         ID       type       ID     extension
@@ -49,11 +49,10 @@ It is possible that several objects are created simultaneously (in terms of the 
 
 A [text based object](OBJECTS.md#text-based-objects) (e.g. an article, note, etc.) results from a raw text submission, so the object file is created from scratch. The file name is built from
 
-1. the **object type** (e.g. `event`),
-2. the automatically assigned **[object ID](#object-ids)** and finally
-3. the appropriate **lower-case text file extension**.
+1. the automatically assigned **[object ID](#object-ids)** and
+2. the appropriate **lower-case text file extension**.
  
-An example could be `event.36704.md`.
+An example could be `36704.md`.
 
 #### File based objects
 
@@ -71,7 +70,7 @@ Object versioning
 When an object gets modified and re-published, *apparat* saves a copy of the previous instance instead of simply overwriting it with the updated version. The latest instance will always be accessible under the canonical object URL, with the current version number being part of the object meta data. Previous versions may be explicitely retrieved by inserting a **version identifier** into the object URL (as a suffix of the object ID):
 
 ```
-http://apparat.tools/2015/10/01/36704/event.36704-1.md
+http://apparat.tools/2015/10/01/36704.event/36704-1.md
                         Identifier for version 1 ^^
 ```
 
