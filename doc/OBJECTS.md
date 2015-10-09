@@ -210,3 +210,25 @@ Object meta data
 * Miscellaneous rendering instructions
 	* Additional styles?
 	* JavaScript libraries?
+	
+	
+Associations with foreign objects
+---------------------------------
+
+Associations need to carry the following characteristics:
+
+* Type of association
+	* embed
+	* reply
+	* like
+	* repost
+* Association target
+	* local (apparat) URL
+	* absolute apparat URL (remote object)
+	* arbitrary URL (no apparat object)
+* Association status (maybe achievable via type couples: "embed" and "embedded-in" 
+	* outgoing
+	* incoming
+* Coupling
+	* Coupled objects (only valid for apparat objects)
+	* Loosely coupled
