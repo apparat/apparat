@@ -13,13 +13,13 @@
     "aura/router": "^3.0@beta",
     "zendframework/zend-diactoros": "^1.1",
     "zendframework/zendsearch": "dev-master",
-    "bauwerk/bauwerk-resource": "dev-master",
+    "apparat/resource": "dev-master",
     "namelesscoder/fluid": "^1.1"
   },
   "repositories": [
     {
       "type": "vcs",
-      "url":  "git@github.com:bauwerk-tools/bauwerk-resource.git",
+      "url":  "git@github.com:apparat/resource.git",
       "reference": "master"
     }
   ],

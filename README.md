@@ -11,7 +11,7 @@ Modules
 	* Reading and writing files
 	* Abstraction layer for multipart files (e.g. Markdown files with YAML front-matter)
 * [apparat/object](https://github.com/apparat/object): Object abstraction layer
-	* Creating, modifying & deleting objects of particular
+	* Creating, modifying & deleting objects of particular types
 	* Accessing & retrieving objects
 	* Managing object references & involvements
 	* Managing object meta data

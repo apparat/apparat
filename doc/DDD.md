@@ -1,12 +1,10 @@
 # File & directory structure for Apparat modules (DDD)
 
-by the example of the [apparat/resource](https://github.com/apparat/apparat) module.
-
 ```
 .
 |-- composer.json
 |-- src
-|   `-- Resource
+|   `-- <PACKAGE>
 |       |-- Application
 |       |-- Domain
 |       |-- Http¹
@@ -14,13 +12,89 @@ by the example of the [apparat/resource](https://github.com/apparat/apparat) mod
 `-- test
 ```
 
-¹ Not used / present in *apparat/resource*. Could be as well `Api`, `Cli` or `Rest`. **Question**: Should they be grouped inside a `Ports` directory instead?
+¹ Arbitrary number of ports provided (may e.g. be `Api`, `Cli`, `Rest`, etc.)
+
+# Namespaces
+
+## `Domain`
+
+* All things domain logic
+	* Domain services
+		* Representing, orchestrating and executing domain tasks and operations
+		* Stateless
+	* Entities
+	* Value objects
+	* Validators
+	* Specifications
+* Framework agnostic
+* No external dependencies
+* Infrastructure independent
+	* Providing interfaces for secondary ports, e.g. a repository interface
+* Must be run from the `Application` namespace
+* Only domain logic changes should ever affect this namespace
+
+## `Application`
+
+* Main entry point
+* Primary point of integration
+	* Application level configuration
+	* Dependency injection configuration
+	* Framework integration
+	* Abstract base classes
+		* Providing shared functionality
+		* No domain or port logic
+		* To be extended by domain or port classes, e.g.
+			* Entity base class (`Domain`)
+			* Controller base (`Ports`)
+	* Application services
+		* Middleware between the outside world and the domain logic
+		* Transforming commands from the outside to domain instructions
+		* Possibly having dependencies (e.g. Framework)
+		* Communication using DTOs (Data Transfer Objects)
+	* Service providers
+		* Translating primary port signals (HTTP, API, Cli, REST, etc.) to domain service calls 
+		* Connecting the domain with the infrastructure (binding secondary adapters to domain interfaces)
+
+## `Http` / `Api` / `Cli` / `Rest` ...
+Primary Ports / "Driving" Adapters
+
+* Connecting the application to "The Outer World"
+* Controllers / MVC implementations
+* Implementing domain interfaces
+
+## `Infrastructure`
+Secondary Ports / "Driven" Adapters
+
+* Connecting the application to the local infrastructure
+* Storage, databases (e.g. repository implementations), etc.
+* Implementing domain interfaces
+
+**Question**: What about grouping both the primary and the secondary adapter implementations in a directory named `Adapter` and then have a subdirectory for each single port / adapter?:
+
+```
+.
+|-- composer.json
+|-- src
+|   `-- <PACKAGE>
+|       |-- Application
+|       |-- Domain
+|       `-- Adapter
+|           |-- Api
+|           |-- Database
+|           |-- Filesystem
+|           |-- Http
+|           `-- Log
+`-- test
+    `-- <PACKAGE>
+        `-- Adapter
+              `-- Test
+```
 
 ___
 
 Structure before DDD reorganization:
 
-```
+```bash
 .
 |-- README.md
 |-- composer.json
