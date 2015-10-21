@@ -6,40 +6,59 @@
 |-- src
 |   `-- <PACKAGE>
 |       |-- Application
+|       |   |-- CommandHandlers
+|       |   |-- Entity.php
+|       |   |-- ValueObject.php
+|       |   `-- DTO.php
 |       |-- Domain
-|       |-- Http¹
-|       `-- Infrastructure
-`-- test
+|       |   `-- Command
+|       |       `-- CommandBusInterface.php
+|       |       `-- CommandHandlerInterface.php
+|       `-- Framework
+|           |-- Http¹
+|           `-- Persistence²
+`-- tests
 ```
 
-¹ Arbitrary number of ports provided (may e.g. be `Api`, `Cli`, `Rest`, etc.)
+¹ Arbitrary number of primary ports (may e.g. be `Api`, `Cli`, `Rest`, etc.)
+
+² Arbitrary number of secondary ports
 
 # Namespaces
 
 ## `Domain`
 
-* All things domain logic
-	* Domain services
-		* Representing, orchestrating and executing domain tasks and operations
-		* Stateless
+* Defining the behaviour and constraints of the application
+* Business logic ("Core domain")
 	* Entities
 	* Value objects
 	* Validators
 	* Specifications
-* Framework agnostic
-* No external dependencies
-* Infrastructure independent
-	* Providing interfaces for secondary ports, e.g. a repository interface
+* Supporting domain logic
+    * Domain services
+        * Representing, orchestrating and executing domain tasks and operations
+        * Stateless
+    * Domain Events
+    * Use-Cases / Commands (definitions of what actions an be taken on the applications)
+* Framework agnostic / infrastructure independent
+* Providing interfaces ("ports") for implementations ("adapters"), e.g. a repository interface
+* No external dependencies³
 * Must be run from the `Application` namespace
 * Only domain logic changes should ever affect this namespace
+
+³ Dependencies to 3rd-party libraries [might be OK](https://groups.google.com/d/msg/dddinphp/YGogT1NSbO0/u22c4dgoxdEJ) under certain circumstances:
+> If it's something that you would write in your own domain code, and that would make sense to extract into some reusable code, and that can be extracted into a reusable library, then you might as well depend on a library that does the same thing, but that happens to have been written by someone else. 
 
 ## `Application`
 
 * Main entry point
+* Orchestrates the use of `Domain` layer entities
+* Adapts requests from the `Framework` layer to the `Domain` layer
+* Handles use-cases / commands
+* Dispatches domain events raised by the `Domain` layer
 * Primary point of integration
 	* Application level configuration
 	* Dependency injection configuration
-	* Framework integration
 	* Abstract base classes
 		* Providing shared functionality
 		* No domain or port logic
@@ -55,40 +74,22 @@
 		* Translating primary port signals (HTTP, API, Cli, REST, etc.) to domain service calls 
 		* Connecting the domain with the infrastructure (binding secondary adapters to domain interfaces)
 
-## `Http` / `Api` / `Cli` / `Rest` ...
-Primary Ports / "Driving" Adapters
+## `Framework`
 
-* Connecting the application to "The Outer World"
-* Controllers / MVC implementations
-* Implementing domain interfaces
-
-## `Infrastructure`
-Secondary Ports / "Driven" Adapters
-
-* Connecting the application to the local infrastructure
-* Storage, databases (e.g. repository implementations), etc.
-* Implementing domain interfaces
-
-**Question**: What about grouping both the primary and the secondary adapter implementations in a directory named `Adapter` and then have a subdirectory for each single port / adapter?:
-
-```
-.
-|-- composer.json
-|-- src
-|   `-- <PACKAGE>
-|       |-- Application
-|       |-- Domain
-|       `-- Adapter
-|           |-- Api
-|           |-- Database
-|           |-- Filesystem
-|           |-- Http
-|           `-- Log
-`-- test
-    `-- <PACKAGE>
-        `-- Adapter
-              `-- Test
-```
+* Integration of 3rd-party libraries (e.g. everything composer pulls in)
+* Adapts requests from the outside world to the `Application` layer
+    * Accepting HTTP requests
+    * Collecting user data
+    * Routing to a Controller etc.
+    * Calling an application use-case, passing on user data and make the `Application` layer handle the use-case
+* Implementing `Application` interfaces
+* Primary Ports / "Driving" Adapters
+    * Connecting the application to "The Outer World"
+    * Controllers / MVC implementations
+    * e.g. `Http` / `Api` / `Cli` / `Rest` ...
+* Secondary Ports / "Driven" Adapters
+    * Connecting the application to the local infrastructure
+    * Storage, databases (e.g. repository implementations), etc.
 
 ___
 
