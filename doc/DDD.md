@@ -7,13 +7,16 @@
 |   `-- <PACKAGE>
 |       |-- Application
 |       |   |-- CommandHandlers
-|       |   |-- Entity.php
+|       |   `-- Service
+|       |-- Domain
+|       |   |-- Command
+|       |   |   |-- CommandBusInterface.php
+|       |   |   `-- CommandHandlerInterface.php
+|       |   |-- Model
+|       |   |   |-- Entity.php
+|       |   |   `-- EntityRepository.php (Interface)
 |       |   |-- ValueObject.php
 |       |   `-- DTO.php
-|       |-- Domain
-|       |   `-- Command
-|       |       `-- CommandBusInterface.php
-|       |       `-- CommandHandlerInterface.php
 |       `-- Framework
 |           |-- Http¹
 |           `-- Persistence²
