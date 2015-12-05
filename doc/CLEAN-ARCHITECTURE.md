@@ -9,38 +9,37 @@ While searching for something simpler, yet equally powerful, I came across [The 
 ```
 .
 |-- composer.json
-|-- src
-|   `-- <PACKAGE>
-|       |-- Domain
-|       |   |-- Contract
-|       |   |-- Factory
-|       |   |-- Model
-|       |   |   `-- <MODULE>
-|       |   |       |-- <MODULE>Interface.php
-|       |   |       |-- Abstract<MODULE>.php
-|       |   |       |-- ...
-|       |   |       `-- InvalidArgumentException.php
-|       |   |-- Repository¹
-|       |   `-- Service
-|       |-- Application
-|       |   |-- Contract
-|       |   |-- Controller
-|       |   `-- Service
-|       `-- Framework
-|           |-- Http²
-|           |-- Yaml³
-|           |-- Persistence⁴
-|           `-- Test
-`-- tests
+`-- src
+    `-- <PACKAGE>
+        |-- Domain
+        |   |-- Contract
+        |   |-- Factory
+        |   |-- Model
+        |   |   `-- <MODULE>
+        |   |       |-- <MODULE>Interface.php
+        |   |       |-- Abstract<MODULE>.php
+        |   |       |-- ...
+        |   |       `-- InvalidArgumentException.php
+        |   |-- Repository¹
+        |   |-- Service
+        |   `-- Test⁵
+        |-- Application
+        |   |-- Contract
+        |   |-- Controller
+        |   |-- Service
+        |   `-- Test⁵
+        `-- Framework
+            |-- Http²
+            |-- Yaml³
+            |-- Repository⁴
+            `-- Test⁵
 ```
 
-¹ Interfaces ("contracts") only
-
-² User Interface: Arbitrary number of primary ports (e.g. `Api`, `Cli`, `Rest`, etc.)
-
-³ External Libraries: Arbitrary number of adapters for external libraries / frameworks etc.
-
-⁴ Infrastructure: Arbitrary number of secondary ports (e.g. database adapters)
+1. Here only interfaces ("contracts")
+2. User Interface: Arbitrary number of primary ports (e.g. `Api`, `Cli`, `Rest`, etc.)
+3. External Libraries: Arbitrary number of external library / framework adapters
+4. Infrastructure: Arbitrary number of secondary ports (e.g. persistence, database adapters)
+5. Tests are an architectural part and located on the outermost layer (side by side to e.g. infrastructure)
 
 ## Conventions
 
