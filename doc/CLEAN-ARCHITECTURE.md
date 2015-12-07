@@ -21,25 +21,24 @@ While searching for something simpler, yet equally powerful, I came across [The 
         |   |       |-- ...
         |   |       `-- InvalidArgumentException.php
         |   |-- Repository¹
-        |   |-- Service
-        |   `-- Test⁵
+        |   `-- Service
         |-- Application
         |   |-- Contract
         |   |-- Controller
-        |   |-- Service
-        |   `-- Test⁵
+        |   `-- Service
         `-- Framework
             |-- Http²
-            |-- Yaml³
-            |-- Repository⁴
-            `-- Test⁵
+            |-- Model³
+            |-- Repository³
+            |-- Test⁴
+            `-- Yaml⁵
 ```
 
 1. Here only interfaces ("contracts")
 2. User Interface: Arbitrary number of primary ports (e.g. `Api`, `Cli`, `Rest`, etc.)
-3. External Libraries: Arbitrary number of external library / framework adapters
-4. Infrastructure: Arbitrary number of secondary ports (e.g. persistence, database adapters)
-5. Tests are an architectural part and located on the outermost layer (side by side to e.g. infrastructure)
+3. Infrastructure: Arbitrary number of secondary ports (e.g. persistence, database adapters)
+4. Tests are an architectural part and located on the outermost layer (side by side to e.g. infrastructure)
+5. External Libraries: Arbitrary number of external library / framework adapters
 
 ## Conventions
 
