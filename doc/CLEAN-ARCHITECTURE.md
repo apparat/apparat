@@ -25,6 +25,8 @@ While searching for something simpler, yet equally powerful, I came across [The 
         |-- Application
         |   |-- Contract
         |   |-- Controller
+        |   |-- Factory
+        |   |-- Model
         |   `-- Service
         `-- Framework
             |-- Http²
@@ -45,4 +47,5 @@ While searching for something simpler, yet equally powerful, I came across [The 
 * The file name of **abstract classes** MUST start with `Abstract`
 * **Interface** file names MUST end with `Interface.php`
 * **Exception** file names MUST end with `Exception.php`
+* **Factory** file names MUST end with `Factory.php`
 * **Contract interfaces** strongly related to domain modules SHOULD be part of the module (otherwise located at `Domain/Contract`)
