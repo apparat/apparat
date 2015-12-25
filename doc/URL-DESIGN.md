@@ -1,39 +1,46 @@
 Apparat URL Design
 ==================
 
-Each object published with *apparat* is assigned a unique **permanent URL** for access and retrieval. As *apparat* aims to impose as few requirements as possible the URLs need to be deliberately designed. In particular, they must not depend on
+All objects published via *apparat* are assigned unique [permanent URLs](https://en.wikipedia.org/wiki/Permalink) for access and retrieval. As *apparat* aims to impose as few requirements as possible, URLs need to be designed deliberately. In particular, object URLs SHOULD NOT depend on
 
-* a router,
-* the webserver's index document feature,
+* a routing mechanism,
+* the web server's index document feature¹,
 * symbolic links or
 * interpreters of any kind.
 
-That said, *apparat*'s canonical object URLs need to stick **close to the file system** and should be easily resolvable even without a web server.
+Canonical object URLs widely adhere to the underlying file system and should be easily resolvable even without a web server.
+
+1. Alternative approach: File formats and extensions [are implementation details](http://www.w3.org/Provider/Style/URI.html#hmap-4) that don't have to be transparent to the client. It is OK to use the web server layer to abstract away these details (and rely on the web server's rewrite features).
 
 
-URL structure
--------------
+Object URLs
+-----------
 
-As a matter of fact, there's no compelling reason why you would necessarily have to distribute the entirety of objects into a multi-level directory structure. Singling out the objects, however, keeps up file system performance and helps avoiding troubles with file and directory name length limitations under certain file systems. A typical *apparat* object URL looks like this:
+There's no really compelling reason to distribute the entirety of objects over a multi-level directory structure. Doing so, however, keeps up the file system performance and helps avoiding troubles with file and directory name length limitations under certain file systems. A typical *apparat* object URL looks like this:
 
-	http://apparat.tools/2015/10/01/36704.event/36704
+	https://apparat.tools/2015/10/01/36704.event/36704
 	
-The path component consists of
+It consists of
 
-1. up to five nested subdirectories denoting the object's [**creation date (and time)**](#creation-date), configurable from `YYYY/MM/DD` to `YYYY/MM/DD/HH/II`, 
-2. an innermost directory named after the [**object ID**](#object-ids) and the [object type](#OBJECTS.md), serving as parent directory for all object related files,
-3. and finally the [**object name**](#object-names) itself, consisting of the original **object file name** ([media objects](#media-objects) only), the **object ID** an optionally an [object revision](#object-revisioning) number. 
+1. a [base URL](#base-url) associated with the *apparat* instance as a whole (`https://apparat.tools/`),
+2. up to six nested subdirectories denoting the object's [creation date (and time)](#creation-date), configurable from `YYYY/MM/DD` to `YYYY/MM/DD/HH/II/SS`,
+3. an innermost directory named after the [object ID](#object-ids) and the [object type](#OBJECTS.md), serving as parent directory for all object related files,
+4. and finally the [object name](#object-names) itself, consisting of the original **object file name** ([media objects](#media-objects) only), the **object ID** an optionally an [object revision](#object-revisioning) number.
 
 ```
-http://apparat.tools  /  2015/10/01  /  36704  .  image  /  36704  -  2
-							 ^            ^         ^         ^       ^
-						  creation     object    object    object   object
-							date         ID       type       ID    revision
+https://apparat.tools  /  2015/10/01  /  36704  .  image  /  36704  -  2
+           ^                  ^            ^         ^         ^       ^
+        base URL           creation     object    object    object   object
+                             date         ID       type       ID    revision
 ```
+
+### Base URL
+
+The base URL associated with an *apparat* instance MAY inlude login credentials, a port number and / or a path component (e.g. `http://user:password@example.com:80/objects/`). In general, the [HTTPS scheme](https://en.wikipedia.org/wiki/HTTPS) is preferred for *apparat* URLs.
 
 ### Creation Date
  
-Using the creation dates for structuring a large number of objects seems to be an **intuitive** and the **most widely accepted approach**. The dates are immutable, and unlike any other category system the calendar as such is perfectly stable, predictable and commonly understood. Although [ordinal dates](https://en.wikipedia.org/wiki/Ordinal_date) would be slightly shorter, *apparat* sticks to a [Gregorian date representation](https://en.wikipedia.org/wiki/Gregorian_calendar) as the large majority of users is not familiar with ordinal dates at all. 
+Using creation dates for structuring a large number of objects seems to be an **intuitive** and the **most widely accepted approach**. These dates are immutable, and unlike many other category systems the calendar is a pretty stable, predictable and commonly understood system. Although [ordinal dates](https://en.wikipedia.org/wiki/Ordinal_date) would be slightly shorter, *apparat* sticks to a [Gregorian date representation](https://en.wikipedia.org/wiki/Gregorian_calendar) as the large majority of users is not familiar with ordinal dates at all.
 
 ### Object IDs
 
@@ -51,12 +58,12 @@ Please see the [object summary](OBJECTS.md) for a list of known object types.
 
 #### Text objects
 
-A [text based object](OBJECTS.md#text-objects) (e.g. an article, note, etc.) results from a raw text submission, so the object file is created from scratch. The object name is built from
+A [text based object](OBJECTS.md#text-objects) (e.g. an article, note, etc.) results from a raw text submission, so the object resource is created from scratch. The object name is built from
 
 1. the automatically assigned **[object ID](#object-ids)** and
 2. an optional [revision number](#object-revision), separated by a dash.
 
-An example could be `36704-1`. The object file will be saved using a lower-case `.md` (Markdown) file extension and also include a [language indicator](#language-indicator). 
+An example could be `36704-1`. The object resource will be saved using a lower-case `.md` (Markdown) file extension and also include a [language indicator](#language-indicator).
 
 #### Media objects
 
@@ -73,27 +80,39 @@ An example could be `myphoto.36704-2`. The media file will be saved with its **o
 When an object gets modified and re-published, *apparat* saves a copy of the previous instance instead of simply overwriting it with the updated version. The latest instance will always be accessible under the canonical object URL, with the current version number being part of the object meta data. Previous versions may be explicitely retrieved by inserting a **version identifier** into the object URL (as a suffix of the object ID):
 
 ```
-http://apparat.tools/2015/10/01/36704.event/36704-1.md
-                        Identifier for version 1 ^^
+https://apparat.tools/2015/10/01/36704.event/36704-1.md
+                         Identifier for version 1 ^^
 ```
 
 *Apparat*'s versioning system is [explained in detail here](VERSIONING.md).
 
-## Object file names
+## Object resources
 
-Object files use the [object name](#object-names) as first part of their file name, followed by a [language identifier](#language-identifier) and a [lower-case file extension](#file-extensions).
+Object resources use the [object name](#object-names) as first part of their file name, followed by a [lower-case file extension](#file-extensions).
 
 ```
-/2015/10/01/36704.image/  36704  -  2  .  de-de  .  md
-                            ^       ^       ^        ^
-                         object  object  language  file
-                           ID   revision    ID   extension
+/2015/10/01/36704.image/  36704  -  2  .  md
+                            ^       ^     ^
+                         object  object   file
+                           ID   revision  extension
 ```
-
-### Language identifier
-
-The language most appropriate for a particular user should be manually resolved or determined via [content negotiation](https://en.wikipedia.org/wiki/Content_negotiation). While canonical object URLs don't contain a language identifier for this reason, object file names very well do: The language identifier is appended to the object name, separated by a dot.
 
 ### File extensions
 
-As also [recommended by TBL](http://www.w3.org/Provider/Style/URI.html#hmap-4), a **canonical object URL** doesn't use a file extension since the file format (which is what file extensions usually indicate) is an implementation detail that shouldn't be necessary for accessing and retrieving the object. When manually resolving an object URL, it will be easy to find the corresponding file as there will be no other one in the same directory with the very same name part. When resolving the URL via a webserver, [content negotiation should be used](http://www.w3.org/Provider/Style/URI.html#hmap-8). The object type — also part of the object URL — will support the negotiation process.
+As [recommended](http://www.w3.org/Provider/Style/URI.html#hmap-4) a **canonical object URL** doesn't use a file extension since the file format (which is what file extensions usually indicate) is an implementation detail that shouldn't be mandatory for accessing and retrieving the object. When manually resolving an object URL, it will be easy to find the corresponding file as there will be no other file in the same directory with the very same name part. When resolving the URL via a web server, [content negotiation should be used](http://www.w3.org/Provider/Style/URI.html#hmap-8). The object type (also part of the object URL) will support the negotiation process.
+
+
+A word on ...
+-------------
+
+### Object localizations
+
+In general, localized object versions are considered as completely separate objects with independent URLs, creation dates and revisions. There should be cross-references between localizations that preferably support content negotiation (TBD).
+
+
+### Object references
+
+Some properties support *apparat* object references as values (e.g. `meta.authors`). References to objects
+
+* within the same *apparat* instance take the form of root relative URLs (e.g. `/2015/10/01/36704.event/36704`).
+* of remote *apparat* instances use the custom protocol `aprt` (respectively `aprts`) to distiguish them from regular HTTP URLs and trigger object instantiation (e.g. `aprts://apparat.tools/2015/10/01/36704.event/36704`).
