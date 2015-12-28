@@ -4,7 +4,7 @@ Object versioning
 Instead of simply overwriting objects during re-publication, *apparat* uses a versioning strategy that is best explained with the help of some examples.
 
  
-Versioning basics — a simple text object
+Versioning basics - a simple text object
 -----------------------------------------
 
 1. Imagine the initial publication of a note. An object file `note.123.md` is created with the `revision` property set to `1` in its meta data.
