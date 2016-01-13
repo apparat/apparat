@@ -20,7 +20,9 @@ Modules
 	* Object access & retrieval
 	* Object search
 	* Object filtering
-	* API / object query language serving objects in different formats
-		* JSON?
+	* Object API
+	    * `/2016/01/13/123.article/123-1` returns the article payload
+	    * `/2016/01/13/123.article/123-1/meta` returns the article meta data as YAML / JSON object
+	    * Could serve different formats depending on the `Accept` header
 * [apparat/publisher](https://github.com/apparat/publisher): *Apparat* object publishing API
 	* [Micropub](https://indiewebcamp.com/Micropub) implementation

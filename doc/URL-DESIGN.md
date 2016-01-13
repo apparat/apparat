@@ -114,5 +114,7 @@ In general, localized object versions are considered as completely separate obje
 
 Some properties support *apparat* object references as values (e.g. `meta.authors`). References to objects
 
-* within the same *apparat* instance take the form of root relative URLs (e.g. `/2015/10/01/36704.event/36704`).
+* within the same *apparat* instance take the form of root relative URLs, e.g.
+  * `/2015/10/01/36704.event/36704` for an object in the same repository or
+  * `/repo/2015/10/01/36704.event/36704` for an object in another registered repository (with the repository URL `repo` in this case)
 * of remote *apparat* instances use the custom protocol `aprt` (respectively `aprts`) to distiguish them from regular HTTP URLs and trigger object instantiation (e.g. `aprts://apparat.tools/2015/10/01/36704.event/36704`).
