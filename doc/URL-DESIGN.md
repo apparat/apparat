@@ -29,7 +29,7 @@ A typical *apparat* object URL looks like this:
 It consists of
 
 1. a [base URL](#base-url) associated with the *apparat* instance as a whole (`https://apparat.tools/`),
-2. a [repository URL](#reposiory-url) identifying the repository the object belongs to (might be empty),
+2. a [repository URL](#repository-url) identifying the repository the object belongs to (might be empty),
 3. up to six nested subdirectories denoting the object's [creation date (and time)](#creation-date), configurable from `YYYY/MM/DD` to `YYYY/MM/DD/HH/II/SS`,
 4. an innermost directory named after the [object ID](#object-ids) and the [object type](#OBJECTS.md), serving as parent directory for all object related files,
 5. and finally the [object name](#object-names) itself, consisting of the original **object file name** ([media objects](#media-objects) only), the **object ID** an optionally an [object revision](#object-revisioning) number.
