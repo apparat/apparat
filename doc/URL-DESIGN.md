@@ -16,27 +16,38 @@ Canonical object URLs widely adhere to the underlying file system and should be 
 Object URLs
 -----------
 
-There's no really compelling reason to distribute the entirety of objects over a multi-level directory structure. Doing so, however, keeps up the file system performance and helps avoiding troubles with file and directory name length limitations under certain file systems. A typical *apparat* object URL looks like this:
+There's no really compelling reason to distribute the entirety of objects over a multi-level directory structure. Doing so, however,
+
+* makes it easier to manually find a specific object in the file system, 
+* keeps up the file system performance and
+* helps avoiding troubles with file and directory name length limitations under certain file systems.
+
+A typical *apparat* object URL looks like this:
 
 	https://apparat.tools/2015/10/01/36704.event/36704
 	
 It consists of
 
 1. a [base URL](#base-url) associated with the *apparat* instance as a whole (`https://apparat.tools/`),
-2. up to six nested subdirectories denoting the object's [creation date (and time)](#creation-date), configurable from `YYYY/MM/DD` to `YYYY/MM/DD/HH/II/SS`,
-3. an innermost directory named after the [object ID](#object-ids) and the [object type](#OBJECTS.md), serving as parent directory for all object related files,
-4. and finally the [object name](#object-names) itself, consisting of the original **object file name** ([media objects](#media-objects) only), the **object ID** an optionally an [object revision](#object-revisioning) number.
+2. a [repository URL](#reposiory-url) identifying the repository the object belongs to (might be empty),
+3. up to six nested subdirectories denoting the object's [creation date (and time)](#creation-date), configurable from `YYYY/MM/DD` to `YYYY/MM/DD/HH/II/SS`,
+4. an innermost directory named after the [object ID](#object-ids) and the [object type](#OBJECTS.md), serving as parent directory for all object related files,
+5. and finally the [object name](#object-names) itself, consisting of the original **object file name** ([media objects](#media-objects) only), the **object ID** an optionally an [object revision](#object-revisioning) number.
 
 ```
-https://apparat.tools  /  2015/10/01  /  36704  .  image  /  36704  -  2
-           ^                  ^            ^         ^         ^       ^
-        base URL           creation     object    object    object   object
-                             date         ID       type       ID    revision
+https://apparat.tools  /  blog  /  2015/10/01  /  36704  .  image  /  36704  -  2
+           ^               ^           ^            ^         ^         ^       ^
+        base URL      repository    creation     object    object    object   object
+                          URL         date         ID       type       ID    revision
 ```
 
 ### Base URL
 
 The base URL associated with an *apparat* instance MAY inlude login credentials, a port number and / or a path component (e.g. `http://user:password@example.com:80/objects/`). In general, the [HTTPS scheme](https://en.wikipedia.org/wiki/HTTPS) is preferred for *apparat* URLs.
+
+### Repository URL
+
+The repository URL identifies the repository an object belongs to. It is relative to the *apparat* [base URL](#base-url) and typically reflects subdirectories in the file system (e.g. `blog`). It might be empty (in which case no subdirectories are involved). In practice it depends on your repository configuration which part of the object URL is considered the repository URL (if any) or the path part of the *apparat* base URL instead.
 
 ### Creation Date
  
