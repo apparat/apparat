@@ -1,15 +1,29 @@
 # Apparat
+> Construction principles
 
 * Platform for publishing different kinds of posts ("[objects](OBJECTS.md)")
+    * Mostly typical IndieWeb post types
+    * Publishing via Micropub
+    * Incorporating IndieWeb features (Webmentions, replies etc.)
+    * Object versioning
+* Modular architecture
+    * Files & file system access
+    * Object storage and low-level manipulation
+    * Object presentation, search, etc.
+    * Object creation & publishing
 * Long-term accessibility
     * Simple storage technology & format → file based!
-        * Markdown (CommonMark) for text based objects
-        * Markdown meta data along with binary objects (images, other media types)
+        * Text based objects: Markdown / CommonMark
+        * Binary objects (images, other media types): Along with Markdown / CommonMark meta data 
     * Consumable with least possible requirements
         * Organization = file system
-        * Minium requirements: Computer, text viewer
+        * Deliberate [URL design](URL-DESIGN.md) so that humans can easily translate between URL and file system
+        * Minimum requirements: Computer, file system access, text viewer
 * Independence
     * Each technology involved (except minimum requirements) should be replaceable
-        * Implementation language [PHP]
+        * Implementation language
         * Webserver
-        * Temmplating framework
+        * Templating engine
+        * etc.
+* Interoperability
+    * Apparat instances should interoperate with each other
