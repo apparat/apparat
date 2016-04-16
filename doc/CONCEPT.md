@@ -24,6 +24,8 @@
         * Implementation language
         * Webserver
         * Templating engine
+        * Posting client
         * etc.
+    * Posting of objects should be possible offline (and synced later)
 * Interoperability
     * Apparat instances should interoperate with each other
