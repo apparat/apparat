@@ -181,29 +181,31 @@ Media objects consist of two files: The media file and a like-named YAML file co
 Object properties
 =================
 
-Object properties are divided into five groups, of which only the first one ([system properties](#system-properties)) is mandatory:
+Object properties are aggregated into 5 property collections, of which only the first one ([system properties](#system-properties)) is mandatory:
 
-### A. System properties
+### Property collections 
+
+#### A. System properties
 
 * UID
 * Type
 * Revision
-* Creation date (TODO)
+* Creation date
 * Publication date
-* Hash
+* [Hash](#object-hash)
 
-### B. Meta properties
+#### B. Meta properties
 
 * Keywords
 * Categories
 * Authors
 * Summary
 
-### C. Domain properties
+#### C. Domain properties
 
 Object type dependent properties.
 
-### D. Resource relations
+#### D. Resource relations
 
 Resource relations need to carry the following characteristics:
 
@@ -221,9 +223,24 @@ Resource relations need to carry the following characteristics:
 	* Coupled objects (only valid for apparat objects)
 	* Loosely coupled
 
-### E. Processing instructions
+#### E. Processing instructions
 
 * Templating variables
 * Miscellaneous rendering instructions
 	* Additional styles?
 	* JavaScript libraries?
+	
+### Object hash
+
+A SHA1 hash is used as object checksum. It's generated from normalized versions of
+
+* the [meta properties](#b-meta-properties),
+* the [domain properties](#c-domain-properties) and
+* the object payload.
+
+All other properties aren't used for the hash:
+
+* The [system properties](#a-system-properties) contain descriptive properties including the hash that are not related to the objects content.
+* The [resource relations](#d-resource-relations) are either incoming (which doesn't have any effect on the object) or already covered by the object payload.
+* The [processing instructions](#e-processing-instructions) are serving display purposes only and don't tell anything about the object content.
+
